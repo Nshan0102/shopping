@@ -10,6 +10,9 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    public const CALCULATION_WITH_TAX = 'with_tax';
+    public const CALCULATION_WITHOUT_TAX = 'without_tax';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -41,4 +44,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function getCalculationTypes(): array
+    {
+        return [self::CALCULATION_WITH_TAX, self::CALCULATION_WITHOUT_TAX];
+    }
 }
