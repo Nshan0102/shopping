@@ -4,7 +4,9 @@
 namespace App\Interfaces;
 
 
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+
 interface ProductInterface
 {
-    public function productable();
+    public function product(): MorphOne;
 }
