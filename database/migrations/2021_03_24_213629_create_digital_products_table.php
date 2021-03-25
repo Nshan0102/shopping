@@ -15,6 +15,7 @@ class CreateDigitalProductsTable extends Migration
     {
         Schema::create('digital_products', function (Blueprint $table) {
             $table->id();
+            $table->string('platform');
             $table->timestamps();
         });
     }
