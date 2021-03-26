@@ -1,0 +1,33 @@
+.category-digital-text {
+    background: #d7dbe2;
+}
+
+.category-physical-text {
+    background: #a3d2cd;
+}
+
+.category-text {
+    padding: 5px;
+    color: black;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.product-card {
+    height: 100%;
+}
+
+.color-shower {
+    width: 100%;
+    height: 15px;
+    margin-left: 15px;
+    border-radius: 15px;
+}
+
+.buy {
+    height: 10%;
+}
+
+.product-field-wrapper {
+    height: 90%;
+}
