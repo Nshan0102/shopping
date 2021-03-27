@@ -13,6 +13,9 @@
     </div>
     <div class="buy d-flex justify-content-between align-items-center">
         <div class="price text-success"><h5 class="mt-4">${{ $product->price }}</h5></div>
-        <a href="#" class="btn btn-sm btn-info mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+        <button onclick="window.addToBasket('{{ $product->id }}')" class="btn btn-sm btn-info mt-3">
+            <i class="fas fa-shopping-cart"></i>
+            Add to Cart
+        </button>
     </div>
 </div>
