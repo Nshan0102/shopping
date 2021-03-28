@@ -18,6 +18,8 @@ class CreateOrderProductsTable extends Migration
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
             $table->float('price', 16, 2, true);
+            $table->integer('quantity');
+            $table->float('sum', 16, 2, true);
             $table->timestamps();
         });
     }

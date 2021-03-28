@@ -17,6 +17,8 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->float('tax');
+            $table->float('sum', 16, 2, true);
             $table->enum('payment_method', Order::PAYMENT_METHODS);
             $table->timestamps();
         });
