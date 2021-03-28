@@ -31,3 +31,14 @@
 .product-field-wrapper {
     height: 90%;
 }
+
+.buy input {
+    width: 50px;
+}
+
+.remove-product {
+    position: absolute;
+    right: 5px;
+    color: red !important;
+    top: 0;
+}
