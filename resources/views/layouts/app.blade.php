@@ -32,7 +32,7 @@
                     Basket <small id="basketItemsCount">({{ $basketItems ?? 0 }})</small>
                     <i class="fas fa-shopping-basket"></i>
                 </a>
-                <a class="navbar-brand" href="{{ route('home') }}">
+                <a class="navbar-brand" href="{{ route('order.history') }}">
                     Orders <i class="fas fa-history"></i>
                 </a>
             @endauth
@@ -101,31 +101,36 @@
             }
         });
         @auth()
-            basketStore.set(basket, true);
-            $(body).on('click', '.buy-product', function () {
-                let id = basketStore.getId(this);
-                let quantity = basketStore.getQuantity(this);
-                if (id > 0 && quantity > 0) {
-                    storeToBasket({id: id, quantity: quantity}, this, "POST", "add");
-                }
-            });
-            $(body).on('click', '.update-product', function () {
-                let id = basketStore.getId(this);
-                let quantity = basketStore.getQuantity(this);
-                if (id > 0 && quantity > 0) {
-                    storeToBasket({id: id, quantity: quantity}, this, "PUT", "update");
-                }
-            });
-            $(body).on('click', '.remove-product', function () {
-                let id = basketStore.getId(this);
-                if (id > 0) {
-                    removeFromBasket({id: id}, this);
-                }
-            });
+        basketStore.set(basket, true);
+        $(body).on('click', '.buy-product', function () {
+            let id = basketStore.getId(this);
+            let quantity = basketStore.getQuantity(this);
+            if (id > 0 && quantity > 0) {
+                storeToBasket({id: id, quantity: quantity}, this, "POST", "add");
+            }
+        });
+        $(body).on('click', '.update-product', function () {
+            let id = basketStore.getId(this);
+            let quantity = basketStore.getQuantity(this);
+            if (id > 0 && quantity > 0) {
+                storeToBasket({id: id, quantity: quantity}, this, "PUT", "update");
+            }
+        });
+        $(body).on('click', '.remove-product', function () {
+            let id = basketStore.getId(this);
+            if (id > 0) {
+                removeFromBasket({id: id}, this);
+            }
+        });
+        $(body).on('click', '#buy-button', function (event) {
+            event.preventDefault();
+            basketStore.reset();
+            window.location.href = $(this).data("href");
+        });
         @else
-            $(body).on('click', '.buy-product', function () {
-                window.location.href = "{{ route("login") }}";
-            });
+        $(body).on('click', '.buy-product', function () {
+            window.location.href = "{{ route("login") }}";
+        });
         @endauth
     });
 </script>
