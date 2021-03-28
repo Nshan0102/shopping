@@ -9,7 +9,7 @@ class Basket {
         } else {
             this.basket = this.getFromLocalStorage();
         }
-        if (init && basket.length > 0) {
+        if (init && this.basket.length > 0) {
             window.setBasket(this.basket);
         }
         this.updateItemsCount();

@@ -12,3 +12,7 @@ span.xs-pagination-link {
 .xs-pagination li > span, .xs-pagination li > a {
     height: 37px !important;
 }
+
+#toast-container > div {
+    opacity: 1!important;
+}

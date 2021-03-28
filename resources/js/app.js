@@ -1,6 +1,7 @@
 require("./bootstrap.js");
-const toastr = require("toastr");
 const Swal = require("sweetalert2");
+const toastr = require("toastr");
+toastr.options.positionClass = 'toast-bottom-left';
 window.addEventListener("DOMContentLoaded", function () {
     window.storeToBasket = function (product, element, method, action) {
         $.ajax({
