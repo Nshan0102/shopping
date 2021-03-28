@@ -20,7 +20,7 @@ class ProductSeeder extends Seeder
     public function run()
     {
         $i = 0;
-        while ($i < 50) {
+        while ($i < 500) {
             $productable = $this->getNewProductable();
             $product = Product::factory()->create();
             $productable->product()->save($product);

@@ -16,7 +16,7 @@ class ProductFactory extends Factory
         return [
             'name' => $this->faker->name,
             'slug' => Str::slug($name).'-'.$this->faker->unique()->slug,
-            'price' => $this->faker->randomFloat(),
+            'price' => $this->faker->randomFloat(2, 1, 15000),
             'discount' => $this->faker->randomDigit
         ];
     }
