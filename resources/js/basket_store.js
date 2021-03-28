@@ -25,7 +25,7 @@ class Basket {
     }
 
     reset() {
-        this.set([]);
+        this.set([], false, true);
         this.storeToLocalStorage(this.basket);
         this.updateItemsCount();
     }
@@ -73,7 +73,9 @@ class Basket {
 
     getQuantity(selector) {
         let quantityInputValue = $(selector).parent().find(".quantity").val();
-        return quantityInputValue > 0 ? parseInt(quantityInputValue) : 1;
+        let quantity = quantityInputValue > 0 ? parseInt(quantityInputValue) : 1;
+        $(selector).parent().find(".quantity").val(quantity);
+        return quantity;
     }
 }
 
