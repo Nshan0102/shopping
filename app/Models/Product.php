@@ -22,6 +22,10 @@ class Product extends Model
         return $this->morphTo();
     }
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d h:i:s'
+    ];
+
     public function getViewPartialPath(): string
     {
         $type = explode('\\', $this->productable_type);

@@ -16,7 +16,13 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
+        'tax',
+        'sum',
         'payment_method'
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d h:i:s'
     ];
 
     public function user(): BelongsTo

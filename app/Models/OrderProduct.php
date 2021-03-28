@@ -11,6 +11,12 @@ class OrderProduct extends Model
         'order_id',
         'product_id',
         'price',
+        'quantity',
+        'sum'
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d h:i:s'
     ];
 
     public function order(): BelongsTo

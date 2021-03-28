@@ -17,6 +17,10 @@ class PhysicalProduct extends Model implements ProductInterface
         'free_shipping'
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d h:i:s'
+    ];
+
     public function product(): MorphOne
     {
         return $this->morphOne(Product::class, 'productable');
