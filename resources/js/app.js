@@ -16,11 +16,11 @@ window.addEventListener("DOMContentLoaded", function () {
             success: function (response) {
                 $(element).removeAttr("disabled");
                 basketStore.set(response);
-                toastr.success("Product was "+action+"ed", "Success", {timeOut: 5000});
+                toastr.success("Product was " + action + "ed", "Success", {timeOut: 5000});
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 $(element).removeAttr("disabled");
-                toastr.error("Product wasn't "+action+"ed", "Error", {timeOut: 5000});
+                toastr.error("Product wasn't " + action + "ed", "Error", {timeOut: 5000});
                 console.log({
                     xhr: xhr,
                     ajaxOptions: ajaxOptions,
