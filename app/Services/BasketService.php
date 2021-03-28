@@ -4,6 +4,8 @@
 namespace App\Services;
 
 
+use App\Models\Product;
+
 class BasketService
 {
     public function makeProduct($product): array
@@ -17,7 +19,7 @@ class BasketService
     public function setProducts($basket)
     {
         $basketTemp = [];
-        foreach ($basket as $product){
+        foreach ($basket as $product) {
             $basketTemp[] = $this->makeProduct($product);
         }
         session(["basket" => $basketTemp]);
@@ -34,7 +36,7 @@ class BasketService
     {
         foreach ($basket as $key => $value) {
             if ($value["id"] === $product["id"]) {
-                switch ($action){
+                switch ($action) {
                     case "update":
                         $basket[$key]["quantity"] = $product["quantity"];
                         break;
@@ -60,7 +62,7 @@ class BasketService
     public function getProductIds(): array
     {
         $basket = session()->get("basket");
-        if (!is_null($basket) && !empty($basket[0])){
+        if (!is_null($basket) && !empty($basket[0])) {
             return array_map(
                 function ($product) {
                     return $product["id"];
@@ -74,7 +76,7 @@ class BasketService
     public function getProductQuantities(): array
     {
         $basket = session()->get("basket");
-        if (!is_null($basket) && !empty($basket[0])){
+        if (!is_null($basket) && !empty($basket[0])) {
             return array_map(
                 function ($product) {
                     return $product["quantity"];
@@ -100,5 +102,10 @@ class BasketService
         $this->changeProductQuantity($basket, $product, $found, $action);
         $this->pushProduct($basket, $product, $found);
         $this->setProducts($basket);
+    }
+
+    public function getProductsByBasket()
+    {
+        return Product::with("productable")->whereIn("id", $this->getProductIds())->get();
     }
 }
