@@ -11,8 +11,11 @@ class PhysicalProductFactory extends Factory
 
     public function definition(): array
     {
+        $height = $this->faker->randomFloat(2, 12, 1500);
+        $length = $this->faker->randomFloat(2, 12, 1500);
+        $width = $this->faker->randomFloat(2, 12, 1500);
         return [
-            'dimension' => $this->faker->fileExtension,
+            'dimension' => $height." x ".$length." x ".$width,
             'color' => $this->faker->hexColor,
             'free_shipping' => $this->faker->boolean(30)
         ];

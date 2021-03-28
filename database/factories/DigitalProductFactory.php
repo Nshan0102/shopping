@@ -12,7 +12,7 @@ class DigitalProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'platform' => $this->faker->domainName
+            'platform' => "http://".$this->faker->domainName
         ];
     }
 }
