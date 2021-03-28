@@ -7,9 +7,11 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <div>{{ __('Basket') }}</div>
                         <div>
-                            <a class="btn btn-primary" href="{{ route("checkout") }}">
-                                {{ __('Checkout') }}
-                            </a>
+                            @if(count($products) > 0)
+                                <a class="btn btn-primary" href="{{ route("checkout") }}">
+                                    {{ __('Checkout') }}
+                                </a>
+                            @endif
                         </div>
                     </div>
                     <div class="card-body">
