@@ -1,0 +1,14 @@
+.xs-pagination-link {
+    color: #3490dc;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    padding: 7.3px 8px;
+}
+
+span.xs-pagination-link {
+    color: gray;
+}
+
+.xs-pagination li > span, .xs-pagination li > a {
+    height: 37px !important;
+}

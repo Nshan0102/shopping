@@ -7,5 +7,9 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Toastr
+@import "~toastr";
+
 // custom styles
+@import "../../resources/css/app.css";
 @import "../../resources/css/product.css";
