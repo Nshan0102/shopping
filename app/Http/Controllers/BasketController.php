@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BasketRemoveRequest;
 use App\Http\Requests\BasketSetRequest;
 use App\Http\Requests\BasketStoreRequest;
-use App\Models\Product;
 use App\Services\BasketService;
 
 class BasketController extends Controller
@@ -20,8 +19,7 @@ class BasketController extends Controller
 
     public function index()
     {
-        $products = Product::with("productable")
-            ->whereIn("id", $this->basketService->getProductIds())->get();
+        $products = $this->basketService->getProductsByBasket();
         $quantities = $this->basketService->getProductQuantities();
         return view("order.basket", [
             "products" => $products,
