@@ -8,7 +8,7 @@ use App\Interfaces\CalculateInterface;
 
 class CalculateWithTax implements CalculateInterface
 {
-    const TAX = 0;
+    const TAX = 10;
     public $products;
     public $quantities;
 
