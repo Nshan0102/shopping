@@ -11,7 +11,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/basket_store.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -29,8 +28,9 @@
                 {{ config('app.name', 'Shopping') }}
             </a>
             @auth()
-                <a class="navbar-brand" href="{{ route('basket.show') }}">
-                    Basket <small>({{ $basketItems ?? 0 }})</small> <i class="fas fa-shopping-basket"></i>
+                <a class="navbar-brand" id="basket-link" href="{{ route('basket.show') }}">
+                    Basket <small id="basketItemsCount">({{ $basketItems ?? 0 }})</small>
+                    <i class="fas fa-shopping-basket"></i>
                 </a>
                 <a class="navbar-brand" href="{{ route('home') }}">
                     Orders <i class="fas fa-history"></i>
@@ -87,11 +87,47 @@
             </div>
         </div>
     </nav>
-
     <main class="py-4">
         @yield('content')
     </main>
 </div>
-<!-- Scripts -->
+<script>
+    let basket = {!! json_encode(session()->get('basket')) !!};
+    let body = 'body';
+    window.addEventListener('load', function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        @auth()
+            basketStore.set(basket, true);
+            $(body).on('click', '.buy-product', function () {
+                let id = basketStore.getId(this);
+                let quantity = basketStore.getQuantity(this);
+                if (id > 0 && quantity > 0) {
+                    storeToBasket({id: id, quantity: quantity}, this, "POST", "add");
+                }
+            });
+            $(body).on('click', '.update-product', function () {
+                let id = basketStore.getId(this);
+                let quantity = basketStore.getQuantity(this);
+                if (id > 0 && quantity > 0) {
+                    storeToBasket({id: id, quantity: quantity}, this, "PUT", "update");
+                }
+            });
+            $(body).on('click', '.remove-product', function () {
+                let id = basketStore.getId(this);
+                if (id > 0) {
+                    removeFromBasket({id: id}, this);
+                }
+            });
+        @else
+            $(body).on('click', '.buy-product', function () {
+                window.location.href = "{{ route("login") }}";
+            });
+        @endauth
+    });
+</script>
 </body>
 </html>
