@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
+        <h1>{{ __('Order #'.$order->id.' Details') }}</h1>
         <div class="row justify-content-center">
             <table class="table mb-0">
                 <thead>
@@ -17,7 +18,7 @@
                     <tr>
                         <th scope="row">{{ $orderProduct->id }}</th>
                         <th>
-                            <a href="{{ route('product.show', $orderProduct->product->id) }}">
+                            <a href="{{ route('product.show', $orderProduct->product) }}">
                                 {{ $orderProduct->product->name }}
                             </a>
                         </th>
