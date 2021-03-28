@@ -14,5 +14,9 @@ span.xs-pagination-link {
 }
 
 #toast-container > div {
-    opacity: 1!important;
+    opacity: 1 !important;
+}
+
+.color-white {
+    color: white;
 }
