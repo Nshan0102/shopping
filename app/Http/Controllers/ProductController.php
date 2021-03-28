@@ -8,6 +8,7 @@ class ProductController extends Controller
 {
     public function show(Product $product)
     {
-        return view('product.single', ["product" => $product->with('productable')->first()]);
+        return view('product.single', ["product" => Product::where("id", $product->id)
+            ->with('productable')->first()]);
     }
 }
