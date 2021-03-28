@@ -5,7 +5,9 @@
         </button>
     @endif
     <div class="product-field-wrapper">
-        <h4 class="card-title">{{ $product->name }}</h4>
+        <h4 class="card-title">
+            <a href="{{ route('product.show', $product) }}">{{ $product->name }}</a>
+        </h4>
         <h6 class="card-subtitle mb-2 text-muted">Category:
             <span class="badge rounded p-1 {{ $product->getCategoryClass() }}">
             {{ $product->getCategory() }}
@@ -17,10 +19,10 @@
             </a>
         </div>
         <div>
-            Stored: {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $product->created_at)->toDayDateTimeString() }}
+            Stored: {{ $product->created_at }}
         </div>
     </div>
-    @if(isset($showAddToBasket) && $showAddToBasket === true)
+    @if($showAddToBasket)
         <div class="buy d-flex justify-content-between align-items-center product">
             <div class="price text-success"><span>${{ $product->price }}</span></div>
             <input value="{{ !empty($quantities) ? $quantities[$index] : 1 }}" type="number" min="1" class="quantity">
