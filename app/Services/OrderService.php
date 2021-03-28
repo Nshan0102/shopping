@@ -29,8 +29,8 @@ class OrderService
         foreach ($calculator->products as $index => $product) {
             $product->quantity = $calculator->quantities[$index];
             $price = $this->getPriceWithTax($product->quantity, $product->price, $calculator::TAX);
-            $product->sum = round($price, 2,);
-            $order["sum"] = round($order["sum"] + $product->sum, 2);
+            $product->sum = round(ceil($price), 2,);
+            $order["sum"] = round(ceil($order["sum"] + $product->sum), 2);
             $order["products"][] = $product;
         }
         return $order;
@@ -41,8 +41,8 @@ class OrderService
         if ($orderDetails["sum"] > 0) {
             $order = Order::create([
                 "user_id" => auth()->id(),
-                "tax" => round($orderDetails["tax"]),
-                "sum" => round($orderDetails["sum"]),
+                "tax" => ceil($orderDetails["tax"]),
+                "sum" => ceil($orderDetails["sum"]),
                 "payment" => $payment
             ]);
             foreach ($orderDetails["products"] as $product) {
