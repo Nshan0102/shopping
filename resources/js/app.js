@@ -1,32 +1,72 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-require('./bootstrap');
-
-window.Vue = require('vue').default;
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-const app = new Vue({
-    el: '#app',
+require("./bootstrap.js");
+const toastr = require("toastr");
+const Swal = require("sweetalert2");
+window.addEventListener("DOMContentLoaded", function () {
+    window.storeToBasket = function (product, element, method, action) {
+        $.ajax({
+            type: method,
+            url: process.env.MIX_APP_URL + "/basket/" + action,
+            data: {
+                product: product
+            },
+            beforeSend: function () {
+                $(element).attr("disabled", true);
+            },
+            success: function (response) {
+                $(element).removeAttr("disabled");
+                basketStore.set(response);
+                toastr.success("Product was "+action+"ed", "Success", {timeOut: 5000});
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $(element).removeAttr("disabled");
+                toastr.error("Product wasn't "+action+"ed", "Error", {timeOut: 5000});
+                console.log({
+                    xhr: xhr,
+                    ajaxOptions: ajaxOptions,
+                    thrownError: thrownError
+                });
+            }
+        });
+    }
+    window.removeFromBasket = function (product, element) {
+        $.ajax({
+            type: "DELETE",
+            url: process.env.MIX_APP_URL + "/basket/remove",
+            data: {
+                product: product
+            },
+            beforeSend: function () {
+                $(element).attr("disabled", true);
+            },
+            success: function (response) {
+                $(element).removeAttr("disabled");
+                basketStore.set(response, false, true);
+                toastr.success("Product removed from basket", "Success", {timeOut: 5000});
+                $(element).parents(".product-card").parent().remove();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $(element).removeAttr("disabled");
+                toastr.error("Product wasn't removed from basket", "Error", {timeOut: 5000});
+                console.log({
+                    xhr: xhr,
+                    ajaxOptions: ajaxOptions,
+                    thrownError: thrownError
+                });
+            }
+        });
+    }
+    window.setBasket = function (products) {
+        $.ajax({
+            type: "POST",
+            url: process.env.MIX_APP_URL + "/basket/set",
+            data: {
+                products: products
+            },
+            compile: function (response) {
+                basketStore.set(response);
+            }
+        });
+    }
+    window.Basket = require("./basket_store").default;
+    window.basketStore = new Basket($);
 });
