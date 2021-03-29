@@ -1,17 +1,7 @@
 class Basket {
-    constructor($) {
-        this.$ = $;
-    }
-
     set(basket, init, force = false) {
-        if (basket.length > 0 || force) {
-            this.basket = basket;
-        } else {
-            this.basket = this.getFromLocalStorage();
-        }
-        if (init && this.basket.length > 0) {
-            window.setBasket(this.basket);
-        }
+        this.basket = basket.length || force ? basket : this.getFromLocalStorage();
+        init && this.basket.length ? setBasket(this.basket) : void (0);
         this.updateItemsCount();
         this.storeToLocalStorage(this.basket);
     }
@@ -19,9 +9,7 @@ class Basket {
     updateItemsCount() {
         this.itemsCount = this.basket.length;
         let basket = document.querySelector("#basketItemsCount");
-        if (basket) {
-            basket.innerText = "(" + this.itemsCount + ")";
-        }
+        basket ? basket.innerHTML = "(" + this.itemsCount + ")" : void (0);
     }
 
     reset() {
@@ -30,8 +18,8 @@ class Basket {
         this.updateItemsCount();
     }
 
-    storeToLocalStorage(basket) {
-        localStorage.setItem("basket", JSON.stringify(basket));
+    storeToLocalStorage() {
+        localStorage.setItem("basket", JSON.stringify(this.basket));
     }
 
     getFromLocalStorage() {
@@ -40,12 +28,10 @@ class Basket {
     }
 
     addProduct(product_id, quantity = 1) {
-        let product = this.basket.find(prod => prod.id === parseInt(product_id));
+        let product = this.basket.find(prod => prod.id === +product_id);
         if (typeof product !== "undefined") {
-            this.basket.forEach((prod) => {
-                if (prod.id === product_id) {
-                    prod.quantity += quantity;
-                }
+            this.basket = this.basket.map((prod) => {
+                prod.id === product_id ? prod.quantity += quantity : void (0);
             });
         } else {
             product = {
@@ -59,21 +45,21 @@ class Basket {
     }
 
     removeProduct(product_id) {
-        this.set(this.basket.filter(product => product.id !== product_id));
+        this.set(this.basket.filter(({id}) => id === product_id));
     }
 
     getProductIds() {
-        return this.basket.map(product => product.id);
+        return this.basket.map(({id}) => id);
     }
 
     getId(selector) {
         let productDataId = $(selector).data("product-id");
-        return productDataId > 0 ? productDataId : null;
+        return productDataId || null;
     }
 
     getQuantity(selector) {
         let quantityInputValue = $(selector).parent().find(".quantity").val();
-        let quantity = quantityInputValue > 0 ? parseInt(quantityInputValue) : 1;
+        let quantity = +quantityInputValue || 1;
         $(selector).parent().find(".quantity").val(quantity);
         return quantity;
     }
