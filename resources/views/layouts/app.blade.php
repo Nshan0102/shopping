@@ -29,11 +29,22 @@
             </a>
             @auth()
                 <a class="navbar-brand" id="basket-link" href="{{ route('basket.show') }}">
-                    Basket <small id="basketItemsCount">({{ $basketItems ?? 0 }})</small>
-                    <i class="fas fa-shopping-basket"></i>
+                    <div class="d-none d-sm-block d-md-block">
+                        <i class="fas fa-shopping-basket mr-1"></i>Basket
+                        <small id="basketItemsCount">({{ $basketItems ?? 0 }})</small>
+                    </div>
+                    <div class="d-block d-sm-none d-md-none d-lg-none">
+                        <i class="fas fa-shopping-basket mr-1"></i>
+                        <small id="basketItemsCount">({{ $basketItems ?? 0 }})</small>
+                    </div>
                 </a>
                 <a class="navbar-brand" href="{{ route('order.history') }}">
-                    Orders <i class="fas fa-history"></i>
+                    <div class="d-none d-sm-block d-md-block">
+                        <i class="fas fa-history mr-1"></i>Orders
+                    </div>
+                    <div class="d-block d-sm-none d-md-none d-lg-none">
+                        <i class="fas fa-history mr-1"></i>
+                    </div>
                 </a>
             @endauth
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
