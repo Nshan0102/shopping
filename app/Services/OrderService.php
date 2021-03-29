@@ -4,12 +4,13 @@
 namespace App\Services;
 
 
+use App\Interfaces\CalculateInterface;
 use App\Models\Order;
 use App\Models\OrderProduct;
 
 class OrderService
 {
-    public function getCalculator($calculationType)
+    public function getCalculator($calculationType): CalculateInterface
     {
         switch ($calculationType) {
             case "without_tax":
@@ -19,7 +20,7 @@ class OrderService
         }
     }
 
-    public function calculate($calculator): array
+    public function calculate(CalculateInterface $calculator): array
     {
         $order = [
             "products" => [],
