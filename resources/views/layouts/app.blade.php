@@ -105,20 +105,20 @@
         $(body).on('click', '.buy-product', function () {
             let id = basketStore.getId(this);
             let quantity = basketStore.getQuantity(this);
-            if (id > 0 && quantity > 0) {
+            if (id && quantity) {
                 storeToBasket({id: id, quantity: quantity}, this, "POST", "add");
             }
         });
         $(body).on('click', '.update-product', function () {
             let id = basketStore.getId(this);
             let quantity = basketStore.getQuantity(this);
-            if (id > 0 && quantity > 0) {
+            if (id && quantity) {
                 storeToBasket({id: id, quantity: quantity}, this, "PUT", "update");
             }
         });
         $(body).on('click', '.remove-product', function () {
             let id = basketStore.getId(this);
-            if (id > 0) {
+            if (id) {
                 removeFromBasket({id: id}, this);
             }
         });
