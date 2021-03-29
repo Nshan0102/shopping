@@ -1,5 +1,4 @@
 require("./bootstrap.js");
-const Swal = require("sweetalert2");
 const toastr = require("toastr");
 toastr.options.positionClass = 'toast-bottom-left';
 window.addEventListener("DOMContentLoaded", function () {
@@ -63,11 +62,11 @@ window.addEventListener("DOMContentLoaded", function () {
             data: {
                 products: products
             },
-            compile: function (response) {
+            complete: function (response) {
                 basketStore.set(response);
             }
         });
     }
     window.Basket = require("./basket_store").default;
-    window.basketStore = new Basket($);
+    window.basketStore = new Basket();
 });
